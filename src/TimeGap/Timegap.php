@@ -180,7 +180,7 @@ class Timegap {
 				$plist = array_slice($this->timedata, $base, ($offset-$base), true);
 
 				$base = $offset;
-				
+
 				foreach($plist as $keeper => $value)
 				{	
 
@@ -233,8 +233,8 @@ class Timegap {
 
 		$data = $this->get_date_data();
 
-		if($data === false)
-			return false;
+		if(is_bool($data))
+			return $data;
 
 		foreach($this->multi as $i => $v)
 			$this->timedata[$i] = (isset($data[$i]) ? $data[$i] : 0);
@@ -254,18 +254,13 @@ class Timegap {
 	private function get_date_data()
 	{
 
-		if( ($unique = md5(implode('#', $this->timedata))) === $this->cacheHash)
-			return true;
-
-		$this->setCacheHash($unique);
-
-		if($this->dateNow > $this->dateThen)
-			return false;
+		
 
 		/**
 			Most of below was taken from CodeIgniter's date helper timespan function
 		**/
 
+		$tempData = array();
 
 		if($this->dateThen === FALSE)
 			$this->dateThen = time();
@@ -273,11 +268,18 @@ class Timegap {
 		if($this->dateNow === FALSE)
 			$this->dateNow = time();
 
+
+		if($this->dateNow > $this->dateThen)
+			return false;
+
 		$range = ($this->dateThen - $this->dateNow);
 
-		$years = floor($range / 31536000);
+		if($range === $this->cacheHash)
+			return true;
 
-		$tempData = array();
+		$this->setCacheHash($range);
+
+		$years = floor($range / 31536000);
 
 		if ($years > 0)
 			$tempData['years'] = $years;
