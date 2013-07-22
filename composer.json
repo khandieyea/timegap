@@ -1,0 +1,6 @@
+{
+    "name": "khandieyea/timegap",
+    "require": {
+        "php": ">=5.2.0",
+    }
+}
