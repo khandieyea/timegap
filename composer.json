@@ -1,5 +1,11 @@
 {
     "name": "khandieyea/timegap",
+    
+    "autoload": {
+       "psr-0": {
+           "TimeGap": "src/"
+       }
+   },
     "require": {
         "php": ">=5.2.0"
     }
