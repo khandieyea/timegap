@@ -2,12 +2,26 @@
 
 include "vendor/autoload.php";
 
-$x = new TimeGap\Timegap();
+// $x = new TimeGap\Timegap();
 
-$x
-	//->setNow('2013-01-01')
-	->setThen(time() + 3600)
-	->setString("months, weeks, days, hours")
-	->setLimit(3);
+// $x
+// 	//->setNow('2013-01-01')
+// 	->setThen(time() + 3600)
+// 	->setString("months, weeks, days, hours")
+// 	->setLimit(3);
 
-echo $x->output();
+// echo $x->output();
+
+
+	$x = new TimeGap\Timegap();
+    					//2 days + 12 hours, 30 minutes
+	$x->setThen(time()+ (172800+43200+1800));
+	$x->setString('days, hours, minutes');
+	$x->setLimit(2);
+
+    // $this->assertEquals(
+    echo '<pre>';
+    echo $x->output();
+    echo '</pre>';
+
+    // , '2 days, 12 hours');

@@ -22,7 +22,7 @@ class Tests extends PHPUnit_Framework_TestCase
     public function testLimiting()
     {
 
-    	$x = new Timegap\Timegap();
+    	$x = new TimeGap\Timegap();
     				//2 days + 12 hours, 30 minutes
     	$x->setThen(time()+ (172800+43200+1800));
     	$x->setString('days, hours, minutes');

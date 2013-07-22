@@ -74,30 +74,39 @@ class Timegap {
 		$this->{$type} = !is_numeric($in) ? strtotime($in) : $in;
 
 		return $this;
+
 	}
 
 	public function setString($string='')
 	{
+
 		$this->string = $string;
 
 		return $this;
+
 	}
 
 	public function setLimit($limit=false)
 	{
+
 		$this->limit = $limit;
 
 		return $this;
+
 	}
 
 	public function __toString()
 	{
+
 		return $this->output();
+
 	}
 
 	public function __isset($name)
 	{
+
 		return (bool) ($this->_is_watched_method($name) !== FALSE);
+
 	}
 
 	public function __get($name)
@@ -117,7 +126,7 @@ class Timegap {
 			$string = str_replace($before, $after, $string);
 
 		return $this->output($string);
-		
+
 	}
 
 	private function _is_watched_method($name)
@@ -130,6 +139,7 @@ class Timegap {
 				return $c;
 			}	
 		}
+
 		return false;
 
 	}
@@ -157,16 +167,35 @@ class Timegap {
 
 		foreach($this->timedata as $key=>$value)
 		{
-			if($value < 1) continue;
+
+			
+			if($value < 1) 
+				continue;
+		
 			if(strpos($string, $key) !== FALSE)
-			{
-				foreach(array_slice($this->timedata, $base, ($base = ($this->timedata_indexes[$key]+1)), true) as $keeper => $value)
+			{	
+
+				$offset = $this->timedata_indexes[$key]+1;
+
+				$plist = array_slice($this->timedata, $base, ($offset-$base), true);
+
+				$base = $offset;
+				
+				foreach($plist as $keeper => $value)
 				{	
-					if($value > 0)
-					{
-						$results[$key] = round(array_sum(array((isset($results[$key]) ? $results[$key] : 0), ($this->multi[$keeper] / $this->multi[$key]) * $value)));
-					}
+
+					if($value <= 0)
+						continue;
+
+					if(!isset($results[$key]))
+						$results[$key] = array();
+
+					$results[$key][$keeper] = ($this->multi[$keeper] / $this->multi[$key]) * $value;
+					
 				}
+
+				if(isset($results[$key]))
+					$results[$key] = array_sum($results[$key]);
 
 			}
 		}
@@ -198,7 +227,6 @@ class Timegap {
 		return $this;
 
 	}
-
 
 	private function __build_date_data()
 	{
@@ -238,81 +266,80 @@ class Timegap {
 			Most of below was taken from CodeIgniter's date helper timespan function
 		**/
 
-			if($this->dateThen === FALSE)
-				$this->dateThen = time();
 
-			if($this->dateNow === FALSE)
-				$this->dateNow = time();
+		if($this->dateThen === FALSE)
+			$this->dateThen = time();
 
-			$range = ($this->dateThen - $this->dateNow);
+		if($this->dateNow === FALSE)
+			$this->dateNow = time();
 
-			$years = floor($range / 31536000);
+		$range = ($this->dateThen - $this->dateNow);
 
-			$tempData = array();
+		$years = floor($range / 31536000);
 
-			if ($years > 0)
-				$tempData['years'] = $years;
-			
-			$range -= $years * 31536000;
+		$tempData = array();
 
-			$months = floor($range / 2628000);
+		if ($years > 0)
+			$tempData['years'] = $years;
+		
+		$range -= $years * 31536000;
 
-			if ($years > 0 OR $months > 0)
-			{
-				if ($months > 0)
-					$tempData['months'] = $months;
+		$months = floor($range / 2628000);
 
-				$range -= $months * 2628000;
-			}
+		if ($years > 0 OR $months > 0)
+		{
+			if ($months > 0)
+				$tempData['months'] = $months;
 
-			$weeks = floor($range / 604800);
-
-			if ($years > 0 OR $months > 0 OR $weeks > 0)
-			{
-				if ($weeks > 0)
-					$tempData['weeks'] = $weeks;
-
-				$range -= $weeks * 604800;
-			}			
-
-			$days = floor($range / 86400);
-
-			if ($months > 0 OR $weeks > 0 OR $days > 0)
-			{
-				if ($days > 0)
-					$tempData['days'] = $days; 
-
-				$range -= $days * 86400;
-			}
-
-
-			$hours = floor($range / 3600);
-
-			if ($days > 0 OR $hours > 0)
-			{
-				if ($hours > 0)
-					$tempData['hours'] = $hours;
-
-				$range -= $hours * 3600;
-			}
-
-			$minutes = floor($range / 60);
-
-			if ($days > 0 OR $hours > 0 OR $minutes > 0)
-			{
-				if ($minutes > 0)
-					$tempData['minutes'] = $minutes;
-
-				$range -= $minutes * 60;
-			}
-
-			if (empty($this->timedata))
-				$tempData['seconds'] = $range;
-
-		//****************//
-		// print_r($tempData);
-
-			return $tempData;
-
+			$range -= $months * 2628000;
 		}
+
+		$weeks = floor($range / 604800);
+
+		if ($years > 0 OR $months > 0 OR $weeks > 0)
+		{
+			if ($weeks > 0)
+				$tempData['weeks'] = $weeks;
+
+			$range -= $weeks * 604800;
+		}			
+
+		$days = floor($range / 86400);
+
+		if ($months > 0 OR $weeks > 0 OR $days > 0)
+		{
+			if ($days > 0)
+				$tempData['days'] = $days; 
+
+			$range -= $days * 86400;
+		}
+
+
+		$hours = floor($range / 3600);
+
+		if ($days > 0 OR $hours > 0)
+		{
+			if ($hours > 0)
+				$tempData['hours'] = $hours;
+
+			$range -= $hours * 3600;
+		}
+
+		$minutes = floor($range / 60);
+
+		if ($days > 0 OR $hours > 0 OR $minutes > 0)
+		{
+			if ($minutes > 0)
+				$tempData['minutes'] = $minutes;
+
+			$range -= $minutes * 60;
+		}
+
+		if (empty($this->timedata))
+			$tempData['seconds'] = $range;
+
+	
+		return $tempData;
+
 	}
+}
