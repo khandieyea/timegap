@@ -117,6 +117,7 @@ class Timegap {
 			$string = str_replace($before, $after, $string);
 
 		return $this->output($string);
+		
 	}
 
 	private function _is_watched_method($name)
@@ -191,9 +192,11 @@ class Timegap {
 
 	private function setCacheHash($h)
 	{
+
 		$this->cacheHash = $h;
 
 		return $this;
+
 	}
 
 
@@ -223,7 +226,7 @@ class Timegap {
 	private function get_date_data()
 	{
 
-		if( ($unique = md5(implode('#',$this->timedata))) == $this->cacheHash)
+		if( ($unique = md5(implode('#', $this->timedata))) === $this->cacheHash)
 			return true;
 
 		$this->setCacheHash($unique);
@@ -233,7 +236,13 @@ class Timegap {
 
 		/**
 			Most of below was taken from CodeIgniter's date helper timespan function
-			**/
+		**/
+
+			if($this->dateThen === FALSE)
+				$this->dateThen = time();
+
+			if($this->dateNow === FALSE)
+				$this->dateNow = time();
 
 			$range = ($this->dateThen - $this->dateNow);
 

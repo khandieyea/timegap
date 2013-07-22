@@ -4,8 +4,9 @@ include "vendor/autoload.php";
 
 $x = new TimeGap\Timegap();
 
-$x->setNow('2013-01-01')
-	->setThen('2013-02-04 13:00:00')
+$x
+	//->setNow('2013-01-01')
+	->setThen(time() + 3600)
 	->setString("months, weeks, days, hours")
 	->setLimit(3);
 
