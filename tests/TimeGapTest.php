@@ -10,8 +10,12 @@ class Tests extends PHPUnit_Framework_TestCase
     {	
  		
 		$x = new TimeGap\Timegap();
+		$x->setNow('2013-01-01');
+		$x->setThen('2013-01-05');
+		$x->setString('days');
+		$x->setLimit(1);
 
- 		$this->assertEquals(102, 100);      
+ 		$this->assertEquals($x->output(), 6);      
  		
  		
     }
