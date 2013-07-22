@@ -34,10 +34,10 @@ class Tests extends PHPUnit_Framework_TestCase
 
     	$this->assertEquals($x->output(), '2 days');
 
-    	$x->setString('weeks, days, hours');
+    	$x->setString('weeks, days, hours, minutes, seconds');
     	$x->setLimit(2);
 
-    	$this->assertEquals($x->output(),'2 days, 12 hours');
+    	$this->assertEquals($x->output(), '2 days, 12 hours');
 
     }
 
