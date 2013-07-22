@@ -1,6 +1,6 @@
 <?php
 
-class Timegap {
+class timegap {
 
 	var $timedata = array();
 
