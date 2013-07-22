@@ -15,7 +15,7 @@ class Tests extends PHPUnit_Framework_TestCase
 		$x->setString('days');
 		$x->setLimit(1);
 
- 		$this->assertEquals($x->output(), 6);      
+ 		$this->assertEquals($x->output(), "4 days");      
  		
  		
     }
