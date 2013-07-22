@@ -1,12 +1,12 @@
 <?php
 
-
-class TimeGapTest extends PHPUnit_Framework_TestCase
+class Tests extends PHPUnit_Framework_TestCase
 {
     public function testSomething()
     {	
  	
- 		$this->assertEquals(100, 100);      
+ 		$this->assertEquals(102, 100);      
+ 		
  		
     }
 
