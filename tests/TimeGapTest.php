@@ -19,7 +19,7 @@ class Tests extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testLimiting()
+    public function testOutputTests()
     {
 
     	$x = new TimeGap\Timegap();
@@ -38,6 +38,25 @@ class Tests extends PHPUnit_Framework_TestCase
     	$x->setLimit(2);
 
     	$this->assertEquals($x->output(), '2 days, 12 hours');
+
+    		//30 minutes;
+    	$x->setThen(time()+1800);
+    	$x->setString('years, months, seconds');
+
+    	$this->assertEquals($x->output(), '1800 seconds');
+
+    	$x->setString('minutes');
+
+    	$this->assertEquals($x->output_default, '30 minutes');
+
+    	//$x->setString('years');
+
+    	$this->assertEquals($x->output_years, '');
+
+    	$x->setThen(time()+(3600+945));
+
+    	$this->assertEquals($x->output_hourscowsminutescowsseconds, '1 hour, 15 minutes, 45 seconds');
+
 
     }
 
