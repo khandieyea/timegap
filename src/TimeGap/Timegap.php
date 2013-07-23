@@ -12,6 +12,7 @@ class Timegap {
 		);
 
 	var $_parse_indicators = array(
+		'__' => '##',
 		'ws' => ' ',
 		'co' => ',',
 		'dh' => '-',
@@ -61,6 +62,12 @@ class Timegap {
 	{
 		return new static($now, $then, $string, $limit);
 	} 
+
+
+	public static function createThen($then=false, $string=false, $limit=false)
+	{
+		return static::create(false, $then, $string, $limit);
+	}
 
 	public function setNow($now=false)
 	{
@@ -130,7 +137,6 @@ class Timegap {
 	private function _parse_output($string)
 	{
 
-
 		foreach($this->_parse_indicators as $before => $after)
 			$string = str_replace($before, $after, $string);
 
@@ -163,8 +169,8 @@ class Timegap {
 		if(!$this->__build_date_data())
 			return false;
 
-		if(strpos($string, '__') !== FALSE)
-			list($string, $limit) = explode('__', $string);
+		if(strpos($string, '##') !== FALSE)
+			list($string, $limit) = explode('##', $string);
 
 		if($string != FALSE)
 			$this->setString($string);
@@ -201,18 +207,19 @@ class Timegap {
 						$results[$key] = array();
 
 					$results[$key][$keeper] = ($this->multi[$keeper] / $this->multi[$key]) * $value;
-					
+
 				}
 
 				if(isset($results[$key]))
 					$results[$key] = array_sum($results[$key]);
 
 			}
+
 		}
 
 		if((bool) $this->limit === false || $this->limit > (count($results)))
 			$this->limit = count($results);
-		
+
 		foreach(array_slice($results, 0, $this->limit) as $name => $value)
 			$string = str_replace($name, "{$value} {$this->index_replace_map[$value == 1 ? substr($name,0,-1) : $name]}", $string);
 
