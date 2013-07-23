@@ -57,6 +57,11 @@ class Timegap {
 
 	}
 
+	public static function create($now=false, $then=false, $string=false, $limit=false)
+	{
+		return new static($now, $then, $string, $limit);
+	} 
+
 	public function setNow($now=false)
 	{
 
