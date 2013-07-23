@@ -15,11 +15,14 @@ class Timegap {
 		'ws' => ' ',
 		'co' => ',',
 		'dh' => '-',
-		);
+		'_' => '',
+	);
 
 	var $index_replace_map = array();
 
 	var $string = 'years, months, weeks, days, hours, minutes, seconds';
+	
+	var $limit = false;
 
 	var $multi = array(
 		'years' => 31536000,
@@ -29,7 +32,7 @@ class Timegap {
 		'hours' => 3600,
 		'minutes' => 60,
 		'seconds' => 1,
-		);
+	);
 
 	function __construct($now=false, $then=false, $string=false, $limit=false)
 	{	
@@ -41,10 +44,10 @@ class Timegap {
 			$this->setThen($then);
 
 		if($string != false);
-		$this->setString($string);
+			$this->setString($string);
 
 		if($limit != false);		
-		$this->setLimit($limit);
+			$this->setLimit($limit);
 
 		//$this->setup_timedata(timespan($now, $then, -1));
 
@@ -122,8 +125,12 @@ class Timegap {
 	private function _parse_output($string)
 	{
 
+
 		foreach($this->_parse_indicators as $before => $after)
 			$string = str_replace($before, $after, $string);
+
+		if($string == 'default')
+			$string = false;
 
 		return $this->output($string);
 
@@ -147,6 +154,7 @@ class Timegap {
 	function output($string=false, $limit=false)
 	{
 
+		
 		if(!$this->__build_date_data())
 			return false;
 
@@ -156,22 +164,19 @@ class Timegap {
 		if($string != FALSE)
 			$this->setString($string);
 
-		if($limit != false)
+		if($limit !== FALSE)
 			$this->setLimit($limit);
-
+		
 		$base = 0;
 
 		$results = array();
 
 		$string = $this->string;
 
+
 		foreach($this->timedata as $key=>$value)
 		{
 
-			
-			if($value < 1) 
-				continue;
-		
 			if(strpos($string, $key) !== FALSE)
 			{	
 
@@ -200,9 +205,9 @@ class Timegap {
 			}
 		}
 
-		if($this->limit === false || $this->limit > (count($results)))
+		if((bool) $this->limit === false || $this->limit > (count($results)))
 			$this->limit = count($results);
-
+		
 		foreach(array_slice($results, 0, $this->limit) as $name => $value)
 			$string = str_replace($name, "{$value} {$this->index_replace_map[$value == 1 ? substr($name,0,-1) : $name]}", $string);
 
@@ -337,7 +342,7 @@ class Timegap {
 			$range -= $minutes * 60;
 		}
 
-		if (empty($this->timedata))
+		//if (empty($this->timedata))
 			$tempData['seconds'] = $range;
 
 	
