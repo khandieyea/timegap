@@ -49,7 +49,7 @@ class Tests extends PHPUnit_Framework_TestCase
     	$this->assertEquals($x->output_years, '');
 
     	$x->setThen(time()+(3600+945));
-    	$this->assertEquals($x->output_hourscowsminutescowssec_onds, '1 hour, 15 minutes, 425 seconds');
+    	$this->assertEquals($x->output_hourscowsminutescowssec_onds, '1 hour, 15 minutes, 45 seconds');
 
 
     }
