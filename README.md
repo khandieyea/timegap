@@ -4,13 +4,13 @@ Timegap
 [![Build Status](https://travis-ci.org/khandieyea/timegap.png)](https://travis-ci.org/khandieyea/timegap)
 
 #WHY?
-I built timegap because I wanted a time-passed or time-untill helper that only showed relevant information.
+Timegap as a time-passed or time-untill helper that only shows relevant information.
 If something (such as a birthday) is 6 months away, do we really care about the seconds or minutes?
 I basically got sick of seeing things like:
 
 ``Your next appointment is in 1 year, 3 months, 2 weeks, 4 days, 11 hours, 21 minutes, 11 seconds``
 
-That's pretty over exagerated, but you get the idea. Timegap is my attempt at solving this.
+That's pretty over exagerated, but you get the idea. Timegap is an attempt at solving this.
 
 #Composer
 https://packagist.org/packages/khandieyea/timegap
