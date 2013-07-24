@@ -48,8 +48,6 @@ And again, when under an hour to go
 ``Your birthday is in: 24 minutes, 11 seconds``
 
 
-
-
 #Dumb stuff you can do
 
 ```php
