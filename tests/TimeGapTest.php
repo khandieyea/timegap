@@ -27,7 +27,7 @@ class Tests extends PHPUnit_Framework_TestCase
     	$x->setThen(time()+ (172800+43200+1800));
     	$x->setString('days, hours, minutes');
     	$x->setLimit(2);
-    	$this->assertEquals($x->output(), '2 days, 13 hours');
+    	$this->assertEquals($x->output(), '2 days, 12 hours');
 
     	$x->setLimit(1);
     	$this->assertEquals($x->output(), '2 days');
