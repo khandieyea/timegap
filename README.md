@@ -5,7 +5,7 @@ Timegap
 
 
 Change Log
- - 26/7/13 - Fixed Typo in read me (thanks dave)
+ - 26/7/13 - Fixed typo in read me (thanks dave)
 
 
 #WHY?
