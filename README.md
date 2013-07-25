@@ -3,8 +3,13 @@ Timegap
 
 [![Build Status](https://travis-ci.org/khandieyea/timegap.png)](https://travis-ci.org/khandieyea/timegap)
 
+
+Change Log
+ - 26/7/13 - Fixed Typo in read me (thanks dave)
+
+
 #WHY?
-Timegap as a time-passed or time-untill helper that only shows relevant information.
+Timegap as a time-passed or time-until helper that only shows relevant information.
 If something (such as a birthday) is 6 months away, do we really care about the seconds or minutes?
 I basically got sick of seeing things like:
 
