@@ -60,12 +60,12 @@ $gap = new Timegap::createThen('a datetime stamp or tick that is 11 hours away')
 
 echo "Your taxi will arrive in: ";
 echo $gap->output('hours, minutes, seconds');
-echo "<br />Thats in precisely ";
+echo "<br />That's in precisely ";
 echo $gap->output('seconds');
 ```
 
 Would give you something like
 
-```Your taxi will arrive in 10 hours, 59 minutes, 58 seconds```
+```Your taxi will arrive in: 10 hours, 59 minutes, 58 seconds```
 
-```Thats in precisely 39598 seconds```
+```That's in precisely 39598 seconds```
