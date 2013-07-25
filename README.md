@@ -5,7 +5,7 @@ Timegap
 
 
 Change Log
- - 26/7/13 - Fixed typo in read me (thanks @davemfletcher)
+ - 26/7/13 - Fixed typo in read me (thanks [@davemfletcher](https://github.com/davemfletcher))
 
 
 #WHY?
