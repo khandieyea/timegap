@@ -44,10 +44,10 @@ class Timegap {
 		if($then != false)
 			$this->setThen($then);
 
-		if($string != false);
+		if($string != false)
 			$this->setString($string);
 
-		if($limit != false);		
+		if($limit != false)		
 			$this->setLimit($limit);
 
 		//$this->setup_timedata(timespan($now, $then, -1));
