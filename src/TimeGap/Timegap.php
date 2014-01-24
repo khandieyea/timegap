@@ -23,6 +23,8 @@ class Timegap {
 
 	var $string = 'years, months, weeks, days, hours, minutes, seconds';
 	
+	var $useShort = false;
+
 	var $limit = false;
 
 	var $multi = array(
@@ -33,6 +35,20 @@ class Timegap {
 		'hours' => 3600,
 		'minutes' => 60,
 		'seconds' => 1,
+	);
+
+
+	var $shortTagNames = array(
+		'years'		=> 'yrs',
+		'year'		=> 'yr',		
+		'months'	=> 'mths',
+		'month'		=> 'mth',
+		'hours'		=> 'hrs',
+		'hour'		=> 'hr', 	
+		'minutes' 	=> 'mins',
+		'minute' 	=> 'min',
+		'seconds' 	=> 'secs',
+		'second' 	=> 'sec',
 	);
 
 	function __construct($now=false, $then=false, $string=false, $limit=false)
@@ -62,6 +78,30 @@ class Timegap {
 	{
 		return new static($now, $then, $string, $limit);
 	} 
+
+	public function useShort($x = TRUE)
+	{
+
+		$this->useShort = $x;
+
+		return $this;
+
+	}
+
+	private function _getShortName($name=false)
+	{
+		return isset($this->shortTagNames[$name]) ? $this->shortTagNames[$name] : $name;
+	}
+
+	public function getNominateTag($hash, $name)
+	{
+
+		if($this->useShort)
+			$name = $this->_getShortName($name);
+
+		return $name;
+
+	}
 
 
 	public static function createThen($then=false, $string=false, $limit=false)
@@ -165,7 +205,6 @@ class Timegap {
 	function output($string=false, $limit=false)
 	{
 
-		
 		if(!$this->__build_date_data())
 			return false;
 
@@ -228,10 +267,15 @@ class Timegap {
 
 		$string = str_replace(array(', ,',' , '),array(', '), $string);
 		
+
+
 		foreach($this->index_replace_map as $after => $before)
-			$string = str_replace($before, $after, $string);
+			$string = str_replace($before, $this->getNominateTag($before, $after), $string);
 		
-		
+
+
+
+		// echo $string;
 		return $string;
 
 	}
