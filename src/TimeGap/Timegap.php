@@ -24,6 +24,7 @@ class Timegap {
 	var $string = 'years, months, weeks, days, hours, minutes, seconds';
 	
 	var $useShort = false;
+	var $useMinShort = false;
 
 	var $limit = false;
 
@@ -49,6 +50,19 @@ class Timegap {
 		'minute' 	=> 'min',
 		'seconds' 	=> 'secs',
 		'second' 	=> 'sec',
+	);
+
+	var $minTagNames = array(
+		'years'		=> 'y',
+		'year'		=> 'y',		
+		'months'	=> 'm',
+		'month'		=> 'm',
+		'hours'		=> 'h',
+		'hour'		=> 'h', 	
+		'minutes' 	=> 'm',
+		'minute' 	=> 'm',
+		'seconds' 	=> 's',
+		'second' 	=> 's',
 	);
 
 	function __construct($now=false, $then=false, $string=false, $limit=false)
@@ -81,11 +95,14 @@ class Timegap {
 
 	public function useShort($x = TRUE)
 	{
-
 		$this->useShort = $x;
-
 		return $this;
+	}
 
+	public function useMinShort($x = TRUE)
+	{
+		$this->useMinShort = $x;
+		return $this;
 	}
 
 	private function _getShortName($name=false)
@@ -93,12 +110,18 @@ class Timegap {
 		return isset($this->shortTagNames[$name]) ? $this->shortTagNames[$name] : $name;
 	}
 
+	private function _getSmallestName($name=false)
+	{
+		return isset($this->minTagNames[$name]) ? $this->minTagNames[$name] : $name;
+	}
+
 	public function getNominateTag($hash, $name)
 	{
 
 		if($this->useShort)
 			$name = $this->_getShortName($name);
-
+		else if($this->useMinShort)
+			$name = $this->_getSmallestName($name);	
 		return $name;
 
 	}
@@ -208,6 +231,12 @@ class Timegap {
 		if(!$this->__build_date_data())
 			return false;
 
+
+		$space = ' ';
+
+		if($this->useMinShort)
+			$space = '';
+
 		if(strpos($string, '##') !== FALSE)
 			list($string, $limit) = explode('##', $string);
 
@@ -260,7 +289,7 @@ class Timegap {
 			$this->limit = count($results);
 
 		foreach(array_slice($results, 0, $this->limit) as $name => $value)
-			$string = str_replace($name, "{$value} {$this->index_replace_map[$value == 1 ? substr($name,0,-1) : $name]}", $string);
+			$string = str_replace($name, "{$value}{$space}{$this->index_replace_map[$value == 1 ? substr($name,0,-1) : $name]}", $string);
 
 		foreach(array_keys($this->multi) as $null)
 			$string = trim(str_replace($null, '', $string), ",- ");
