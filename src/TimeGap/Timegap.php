@@ -274,7 +274,7 @@ class Timegap {
 					if(!isset($results[$key]))
 						$results[$key] = array();
 
-					$results[$key][$keeper] = ($this->multi[$keeper] / $this->multi[$key]) * $value;
+					$results[$key][$keeper] =   round ( ($this->multi[$keeper] / $this->multi[$key]) * $value) ;
 
 				}
 
