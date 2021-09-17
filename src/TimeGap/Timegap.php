@@ -57,6 +57,8 @@ class Timegap {
 		'year'		=> 'y',		
 		'months'	=> 'm',
 		'month'		=> 'm',
+		'days'		=> 'd',
+		'day'		=> 'd'
 		'hours'		=> 'h',
 		'hour'		=> 'h', 	
 		'minutes' 	=> 'm',
